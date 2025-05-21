@@ -20,7 +20,7 @@ API berbasis **Spring Boot** yang terhubung ke **PostgreSQL** menggunakan **Dock
     ```
 3.  Akses API:
     ```bash
-    http://localhost:8080/...
+    http://localhost:8080/api/viewData
     ```
 
 ## Konfigurasi Database
