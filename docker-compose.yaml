@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: interview_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgre
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - backend_net
+    restart: unless-stopped 
+  app:
+    build: .
+    container_name: springboot_app
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/interview_test
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgre
+    ports:
+      - "8080:8080"
+    networks:
+      - backend_net
+    restart: unless-stopped 
+
+networks:
+  backend_net:
